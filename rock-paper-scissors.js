@@ -48,3 +48,32 @@ function play(playerSelection, computerSelection) {
             break; 
         }
 }
+
+function game() {
+    var result;
+    let score = 0;
+    for (let i = 0; i < 5; i++) {
+        result = play(prompt(), getComputerChoice());
+        console.log(result);
+        score += calcScore(result);
+    }
+    if (score > 0) {
+        console.log('You Won the Tournament!')
+    } else if (score == 0) {
+        console.log('The Tournament is a Draw!')
+    } else {
+        console.log('You Lost the Tournament!')
+    }
+}
+
+function calcScore(result) {
+    if (result == 'Tie!') {
+        return 0;
+    } else if (result.slice(4, 8) == 'Lose') {
+        return -1;
+    } else {
+        return 1;
+    }
+}
+
+game();
