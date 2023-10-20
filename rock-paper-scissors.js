@@ -9,6 +9,18 @@ function getComputerChoice() {
     }
 }
 
+let rock = document.querySelector('#ROCK');
+let paper = document.querySelector('#PAPER');
+let scissors = document.querySelector('#SCISSORS');
+
+rock.addEventListener('click', play('ROCK', getComputerChoice()));
+paper.addEventListener('click', play('PAPER', getComputerChoice()));
+scissors.addEventListener('click', play('SCISSORS', getComputerChoice()));
+
+let results = document.querySelector('#results');
+
+
+
 /* Gets a random number between two integers. Maximum is exclusive and minimum is inclusive. */
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
