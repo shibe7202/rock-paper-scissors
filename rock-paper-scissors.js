@@ -1,3 +1,6 @@
+let playerScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     let int = getRandomInt(0, 3);
     if (int == 0) {
@@ -10,15 +13,17 @@ function getComputerChoice() {
 }
 
 let rock = document.querySelector('#ROCK');
+rock.value = 'ROCK';
 let paper = document.querySelector('#PAPER');
+paper.value = 'PAPER';
 let scissors = document.querySelector('#SCISSORS');
+scissors.value = 'SCISSORS';
 
-rock.addEventListener('click', play('ROCK', getComputerChoice()));
-paper.addEventListener('click', play('PAPER', getComputerChoice()));
-scissors.addEventListener('click', play('SCISSORS', getComputerChoice()));
+rock.addEventListener('click', play);
+paper.addEventListener('click', play);
+scissors.addEventListener('click', play);
 
 let results = document.querySelector('#results');
-
 
 
 /* Gets a random number between two integers. Maximum is exclusive and minimum is inclusive. */
@@ -26,56 +31,66 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
-function play(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toUpperCase();
-    computerSelection = computerSelection.toUpperCase(); 
+function play(event) {
+    console.log(event.target.value);
+    let playerSelection = event.target.value;
+    let computerSelection = getComputerChoice().toUpperCase(); 
 
     switch(playerSelection) {
         case 'ROCK':
             if (computerSelection == 'ROCK') {
                 return 'Tie!';
             } else if ( computerSelection == 'PAPER') {
-                return 'You Lose! Paper Beats Rock!';
+                computerScore += 1;
             } else {
-                return 'You Win! Rock Beats Scissors!'
+                playerScore += 1;
             }
+            game();
             break; 
         case 'PAPER':
             if (computerSelection == 'PAPER') {
                 return 'Tie!';
             } else if ( computerSelection == 'SCISSORS') {
-                return 'You Lose! Scissors Beats Paper!';
+                computerScore += 1;
             } else {
-                return 'You Win! Paper Beats Rock!'
+                playerScore += 1;
             }
+            game();
             break; 
         case 'SCISSORS':
             if (computerSelection == 'SCISSORS') {
                 return 'Tie!';
             } else if ( computerSelection == 'ROCK') {
-                return 'You Lose! Rock Beats Scissors!';
+                computerScore += 1;
             } else {
-                return 'You Win! Scissors Beats Paper!'
+                playerScore += 1;
             }
+            game();
             break; 
         }
 }
 
 function game() {
-    var result;
-    let score = 0;
-    for (let i = 0; i < 5; i++) {
-        result = play(prompt(), getComputerChoice());
-        console.log(result);
-        score += calcScore(result);
+    console.log(computerScore);
+    if (computerScore == 5) {
+        results.textContent = 'You Lost the Tournament!';
+    } else if (playerScore == 5) {
+        results.textContent = 'You Won the Tournament!';
+    } else {
+        results.textContent = "Player Score: " + playerScore + " " + "Computer Score: " + computerScore;
     }
+    
+//   result = play(prompt(), getComputerChoice());
+//    score += calcScore(result);
+    
+    /*
     if (score > 0) {
         console.log('You Won the Tournament!')
     } else if (score == 0) {
         console.log('The Tournament is a Draw!')
     } else {
         console.log('You Lost the Tournament!')
-    }
+    } */
 }
 
 function calcScore(result) {
@@ -88,4 +103,3 @@ function calcScore(result) {
     }
 }
 
-game();
