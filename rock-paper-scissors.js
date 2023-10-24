@@ -32,7 +32,6 @@ function getRandomInt(min, max) {
 }
 
 function play(event) {
-    console.log(event.target.value);
     let playerSelection = event.target.value;
     let computerSelection = getComputerChoice().toUpperCase(); 
 
@@ -71,7 +70,6 @@ function play(event) {
 }
 
 function game() {
-    console.log(computerScore);
     if (computerScore == 5) {
         results.textContent = 'You Lost the Tournament!';
     } else if (playerScore == 5) {
